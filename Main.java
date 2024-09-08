@@ -1,62 +1,133 @@
+import java.util.Scanner;
+
 class Main {
     public static void main(String[] args) {
-        Elemento[] filaAtendimento = new Elemento[] {
-            new Elemento("CLI001", "Maria Silva", "Dúvida sobre produto"),
-            new Elemento("CLI002", "João Souza", "Reclamação de serviço"),
-            new Elemento("CLI003", "Ana Costa", "Solicitação de reembolso"),
-            new Elemento("CLI004", "Pedro Alves", "Informações de entrega"),
-            new Elemento("CLI005", "Carla Dias", "Agendamento de visita"),
-            new Elemento("CLI006", "Lucas Martins", "Alteração de pedido"),
-            new Elemento("CLI007", "Patrícia Rocha", "Cancelamento de contrato"),
-            new Elemento("CLI008", "Rafael Lima", "Renovação de assinatura"),
-            new Elemento("CLI009", "Fernanda Gomes", "Suporte para instalação"),
-            new Elemento("CLI010", "Carlos Eduardo", "Pedido de orçamento")
-        };
-        Fila f = new Fila();
-        for (int i = 0; i < 5; i++) {
-            f.adicionar(filaAtendimento[i]);
-        }
-        f.printar();
-        f.remover();
-        f.remover();
-        f.remover();
-        for (int i = 0; i < 5; i++) {
-            f.adicionar(filaAtendimento[i+5]);
-        }
-        f.printar();
-        for (int i = 0; i < 7; i++) {
-            f.remover();
-        }
-        f.printar();
-
-        Elemento[] historico = new Elemento[] {
-            new Elemento("REQ001", "Instalação de software", "2024-08-20 10:30"),
-            new Elemento("REQ002", "Manutenção preventiva", "2024-08-20 11:00"),
-            new Elemento("REQ003", "Atualização de sistema", "2024-08-20 11:30"),
-            new Elemento("REQ004", "Suporte técnico", "2024-08-20 12:00"),
-            new Elemento("REQ005", "Troca de equipamento", "2024-08-20 12:30"),
-            new Elemento("REQ006", "Consulta de garantia", "2024-08-20 13:00"),
-            new Elemento("REQ007", "Reparo de impressora", "2024-08-20 13:30"),
-            new Elemento("REQ008", "Configuração de rede", "2024-08-20 14:00"),
-            new Elemento("REQ009", "Restauração de dados", "2024-08-20 14:30"),
-            new Elemento("REQ010", "Consulta técnica", "2024-08-20 15:00")
-        };
+        boolean rodando = true;
+        Scanner teclado = new Scanner(System.in);
         Pilha p = new Pilha();
-        for (int i = 0; i < 5; i++) {
-            p.adicionar(historico[i]);
+        Fila f = new Fila();
+        while (rodando) {
+            System.out.println("Selecione a opção:");
+            System.out.println("1 - Pilha");
+            System.out.println("2 - Fila");
+            System.out.println("3 - Printar todos");
+            System.out.println("0 - Sair");
+            System.out.print("Sua opção: ");
+            int opcao = Integer.parseInt(teclado.nextLine());
+            switch (opcao) {
+                case 1:
+                    boolean rodandoPilha = true;
+                    while (rodandoPilha) {
+                        System.out.println("Selecione a opção:");
+                        System.out.println("1 - Adicionar na pilha");
+                        System.out.println("2 - Remover da pilha");
+                        System.out.println("3 - Printar topo da pilha");
+                        System.out.println("4 - Printar a pilha");
+                        System.out.println("0 - Sair");
+                        System.out.print("Sua opção: ");
+                        int opcaoPilha = Integer.parseInt(teclado.nextLine());
+                        switch (opcaoPilha) {
+
+                            case 1:
+                                System.out.print("ID: ");
+                                String novoID = teclado.nextLine();
+                                System.out.print("Descrição: ");
+                                String desc = teclado.nextLine();
+                                System.out.print("Data: ");
+                                String data = teclado.nextLine();
+                                p.adicionar(new Elemento(novoID, desc, data));
+                                break;
+                        
+                            case 2:
+                                p.remover();
+                                break;
+                        
+                            case 3:
+                                System.out.println(p.topo());
+                                break;
+                        
+                            case 4:
+                                p.printar();
+                                break;
+                        
+                            case 0:
+                                rodandoPilha = false;
+                                break;
+                        
+                            default:
+                                break;
+                        }
+                    }
+                        
+                    break;
+            
+                case 2:
+
+                    boolean rodandoFila = true;
+                    while (rodandoFila) {
+                        System.out.println("Selecione a opção:");
+                        System.out.println("1 - Adicionar na fila");
+                        System.out.println("2 - Remover da fila");
+                        System.out.println("3 - Printar início da fila");
+                        System.out.println("4 - Printar final da fila");
+                        System.out.println("5 - Printar a fila");
+                        System.out.println("0 - Sair");
+                        System.out.print("Sua opção: ");
+                        int opcaoFila = Integer.parseInt(teclado.nextLine());
+                        switch (opcaoFila) {
+
+                            case 1:
+                                System.out.print("Nome: ");
+                                String nome = teclado.nextLine();
+                                System.out.print("Número: ");
+                                String numero = teclado.nextLine();
+                                System.out.print("Motivo: ");
+                                String motivo = teclado.nextLine();
+                                f.adicionar(new Elemento(nome, numero, motivo));
+                                break;
+                        
+                            case 2:
+                                f.remover();
+                                break;
+                        
+                            case 3:
+                                System.out.println(f.primeiro());
+                                break;
+                        
+                            case 4:
+                                System.out.println(f.ultimo());
+                                break;
+                        
+                            case 5:
+                                f.printar();
+                                break;
+                        
+                            case 0:
+                                rodandoFila = false;
+                                break;
+                        
+                            default:
+                                break;
+                        }
+                    }
+
+                    break;
+            
+                case 3:
+                    p.printar();
+                    f.printar();
+                    break;
+            
+                case 0:
+                    rodando = false;
+                    break;
+            
+                default:
+                    break;
+            }
+
         }
-        p.printar();
-        p.remover();
-        p.remover();
-        p.remover();
-        for (int i = 0; i < 5; i++) {
-            p.adicionar(historico[i+5]);
-        }
-        p.printar();
-        for (int i = 0; i < 7; i++) {
-            p.remover();
-        }
-        p.printar();
+        teclado.close();
     }
 }
 
@@ -235,6 +306,6 @@ class Elemento {
         this.campo2 = campo2;
     }
     public String toString() {
-        return String.format("%s | %-25s\t| %s", id, campo1, campo2);
+        return String.format("%-6s | %-10s\t| %s", id, campo1, campo2);
     }
 }
